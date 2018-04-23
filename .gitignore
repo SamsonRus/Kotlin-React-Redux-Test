@@ -1,0 +1,15 @@
+
+/.gradle/
+/.idea/
+/build/
+/gradle/
+/server/build/
+/server/out/
+/server/server.iml
+/client/client.iml
+/EducationCards.iml
+/client/build/
+/gradlew
+/gradlew.bat
+/package-lock.json
+/node_modules/

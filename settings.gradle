@@ -1,0 +1,5 @@
+rootProject.name = 'Kotlin-React-Redux-Test'
+include 'backend'
+include 'common'
+include 'frontend'
+rootProject.buildFileName = 'build.gradle.kts'
