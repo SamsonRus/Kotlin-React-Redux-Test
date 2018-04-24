@@ -1,0 +1,90 @@
+buildscript {
+    ext {
+        html_version = '0.6.8'
+        kotlin_frontend_version = '0.0.30'
+        kotlin_react_version = '16.3.1-pre.27-kotlin-1.2.30'
+    }
+
+    repositories {
+        mavenCentral()
+        maven { url "https://dl.bintray.com/kotlin/kotlin-eap" }
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:$kotlin_frontend_version"
+    }
+}
+
+apply plugin: 'kotlin2js'
+apply plugin: 'org.jetbrains.kotlin.frontend'
+
+repositories {
+    mavenLocal()
+    jcenter()
+    maven { url "http://dl.bintray.com/kotlin/kotlinx.html" }
+    maven { url "https://kotlin.bintray.com/kotlin-js-wrappers" }
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    compile "org.jetbrains:kotlin-react:$kotlin_react_version"
+    compile "org.jetbrains:kotlin-react-dom:$kotlin_react_version"
+    compile "org.jetbrains.kotlinx:kotlinx-html-js:$html_version"
+}
+
+kotlinFrontend {
+    downloadNodeJsVersion = "latest"
+
+    sourceMaps = true
+
+    npm {
+        dependency("style-loader")
+        dependency("css-loader")
+        dependency("url-loader")
+        dependency("img-loader")
+
+        dependency("react")
+        dependency("react-dom")
+        dependency("react-router")
+        dependency("redux")
+        dependency("react-redux")
+        dependency("redux-thunk")
+        dependency("redux-devtools-extension")
+        dependency("jquery")
+        dependency("react-markdown")
+
+        devDependency("babel-loader")
+        devDependency("babel-core")
+    }
+
+    webpackBundle {
+        bundleName = "main"
+        sourceMapEnabled = true
+        contentPath = file('src/web')
+        publicPath = "/client/"
+        port = 8088
+    }
+}
+
+compileKotlin2Js {
+    kotlinOptions.metaInfo = true
+    kotlinOptions.outputFile = "$project.buildDir.path/js/${project.name}.js"
+    kotlinOptions.sourceMap = true
+    kotlinOptions.sourceMapEmbedSources = "always"
+    kotlinOptions.moduleKind = 'commonjs'
+}
+
+sourceSets {
+    main {
+        kotlin.srcDirs += "src/main/kotlin"
+        resources.srcDirs += "src/main/resources"
+        output.resourcesDir = "build/js/resources"
+    }
+}
+
+task copyToBuild(type: Copy) {
+    into 'build/js/client'
+    from "src/main/kotlin"
+    exclude "**/*.kt"
+}
+
