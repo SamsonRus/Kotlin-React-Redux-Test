@@ -61,7 +61,7 @@ kotlinFrontend {
         bundleName = "main"
         sourceMapEnabled = true
         contentPath = file('src/web')
-        publicPath = "/client/"
+        publicPath = "/frontend/"
         port = 8088
     }
 }
@@ -83,7 +83,7 @@ sourceSets {
 }
 
 task copyToBuild(type: Copy) {
-    into 'build/js/client'
+    into 'build/js/frontend'
     from "src/main/kotlin"
     exclude "**/*.kt"
 }
