@@ -8,3 +8,6 @@ inline fun <T> jsObject(builder: T.() -> Unit): T {
         builder()
     }
 }
+
+inline fun js(builder: dynamic.() -> Unit): dynamic = jsObject(builder)
+

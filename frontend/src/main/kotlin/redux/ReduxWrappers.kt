@@ -33,5 +33,5 @@ val composeWithDevTools: dynamic = require("redux-devtools-extension").composeWi
 
 
 fun Store.dispatch(action: ReduxAction) {
-    //this.doDispatch(action())
+    this.doDispatch(action())
 }
