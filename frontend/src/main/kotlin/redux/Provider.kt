@@ -1,12 +1,28 @@
 package redux
 
-import react.RProps
+import react.*
 import util.require
 
 val Provider: dynamic = require("react-redux").Provider
 
-class ReactProviderProps(var store: Any) : RProps
+//class ReactProviderProps(var store: Any) : reactRedefine.RProps()
+//
+//object ProviderObject : ReactExternalComponentSpec<ReactProviderProps>(Provider)
 
-open class ReactExternalComponentSpec<P : RProps>(val ref: dynamic)
+class ProviderComponent: RComponent<ProviderRProps, RState>() {
+    override fun RBuilder.render() {
+        //val childrenList = listOf<Any>(props.children)
+        child(
+                type = Provider,
+                props = props,
+                children = listOf<Any>(props.children)
+             )
+    }
+}
 
-object ProviderComponent : ReactExternalComponentSpec<ReactProviderProps>(Provider)
+class ProviderRProps(var store: Any, var children: ReactElement) : RProps
+
+fun RBuilder.provider(store: Any, children: ReactElement) = child(ProviderComponent::class) {
+    attrs.store = store
+    attrs.children = children
+}

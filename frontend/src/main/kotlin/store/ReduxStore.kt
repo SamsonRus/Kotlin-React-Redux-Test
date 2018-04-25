@@ -2,6 +2,9 @@
 
 package store
 
+import model.Car
 import redux.ReduxState
 
-data class ReduxStore(val selectedCar: SelectCar? = null) : ReduxState
+data class ReduxStore(
+        val selectedCar: Car = Car()
+                     ) : ReduxState
