@@ -10,6 +10,7 @@ import react.dom.li
 import react.dom.ol
 import reducers.getCars
 import redux.connect
+import redux.dispatch
 import store.changeSelectedCar
 import store.ReduxStore
 import util.jsObject
@@ -25,7 +26,8 @@ val carsListConnector =
             jsObject {
                 changeSelectCar = { selectedCar ->
                     js {
-                        dispatch(changeSelectedCar(selectedCar))
+                        dispatch(redux.ReduxAction(store.ActionType.SELECT_CAR,
+                                store.SelectCar(selectedCar)))
                     }
                 }
             }
@@ -35,7 +37,9 @@ class CarsList : RComponent<CarsListRProps, RState>() {
     fun RBuilder.showList(car : Car) {
         li {
             +car.car
-            attrs.onClickFunction = { props.changeSelectCar(car) }
+            attrs.onClickFunction = {
+                props.changeSelectCar(car)
+            }
 //            attrs.onClickFunction = js {
 //                dispatch(changeSelectedCar(car))
 //            }

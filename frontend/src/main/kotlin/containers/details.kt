@@ -9,10 +9,22 @@ import react.dom.h2
 import react.dom.p
 import model.Car
 import react.dom.img
+import redux.connect
+import store.ReduxStore
+import util.jsObject
+
+val detailsConnector =
+        connect<DetailsRProps, ReduxStore>(
+                {state: ReduxStore , _ ->
+                    jsObject {
+                        selectedCar = state.selectedCar
+                    }
+                })
+
 
 class Details : RComponent<DetailsRProps, RState>() {
     override fun RBuilder.render() {
-        if(props.selectedCar.car==""){
+        if(props.selectedCar==null ){
             p{
                 +"Выберите автомобиль.."
             }

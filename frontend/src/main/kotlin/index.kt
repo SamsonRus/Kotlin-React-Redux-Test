@@ -17,12 +17,11 @@ fun main(args: Array<String>) {
     reduxStore.dispatch(ReduxAction(ActionType.SELECT_CAR, SelectCar(Car())))
 
     render(document.getElementById("root")) {
-        div {
-            provider(
-                    store = reduxStore,
-                    children = webPage()
-                    )
-        }
+
+            child(ProviderComponent::class) {
+                attrs.store = reduxStore
+                attrs.children = webPage()
+            }
 
     }
 }
