@@ -9,7 +9,7 @@ fun mainReducer(reduxState: ReduxStore, reduxAction: dynamic): ReduxState =
             when (ActionType.valueOf(reduxAction.type)) {
                 ActionType.SELECT_CAR   -> {
                     val selectCar = reduxAction.payload as SelectCar
-                    reduxState.copy(selectedCar = selectCar.car)
+                    reduxState.copy(active = selectCar.car)
                 }
             }
         }

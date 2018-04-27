@@ -45,9 +45,9 @@ kotlinFrontend {
 
         dependency("react")
         dependency("react-dom")
+        dependency("react-redux")
         dependency("react-router")
         dependency("redux")
-        dependency("react-redux")
         dependency("redux-thunk")
         dependency("redux-devtools-extension")
         dependency("jquery")
@@ -63,6 +63,12 @@ kotlinFrontend {
         contentPath = file('src/web')
         publicPath = "/frontend/"
         port = 8088
+    }
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
     }
 }
 

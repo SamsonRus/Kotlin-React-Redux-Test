@@ -1,8 +1,6 @@
-import components.WebPage
 import components.webPage
 import model.Car
 import kotlin.browser.document
-import react.dom.div
 import react.dom.render
 import redux.*
 import store.ActionType
@@ -18,10 +16,9 @@ fun main(args: Array<String>) {
 
     render(document.getElementById("root")) {
 
-            child(ProviderComponent::class) {
-                attrs.store = reduxStore
-                attrs.children = webPage()
-            }
+        redux(reduxStore) {
+            webPage()
+        }
 
     }
 }
