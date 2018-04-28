@@ -2,12 +2,12 @@ package store
 
 import model.Car
 import redux.ReduxAction
+import redux.dispatch
+import redux.thunk
 import util.async
 
-fun changeSelectedCar(car: Car): ((dynamic) -> Unit, () -> ReduxStore) -> Unit {
-    return { dispatch: (dynamic) -> Unit, _: () -> ReduxStore ->
-        async {
-            dispatch(ReduxAction(ActionType.SELECT_CAR, SelectCar(car)))
-        }
+fun changeActiveCar(car: Car) = thunk {
+    async {
+        dispatch(ReduxAction(ActionType.SELECT_CAR, SelectCar(car)))
     }
 }

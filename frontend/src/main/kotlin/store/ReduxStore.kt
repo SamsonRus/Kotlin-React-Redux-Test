@@ -4,9 +4,7 @@ package store
 
 import model.Car
 import reducers.getCars
-import redux.ReduxState
+import redux.Redux
 
 data class ReduxStore(
-        val cars: List<Car> = getCars(),
-        val active: Car = Car()
-                     ) : ReduxState
+        val cars: List<Car> = getCars(), val active: Car = Car()) : Redux.ReduxState

@@ -1,12 +1,12 @@
 import components.webPage
 import model.Car
-import kotlin.browser.document
 import react.dom.render
 import redux.*
 import store.ActionType
 import store.ReduxStore
 import store.SelectCar
 import store.mainReducer
+import kotlin.browser.document
 
 fun main(args: Array<String>) {
     val reduxStore = Redux.createStore(::mainReducer, ReduxStore(),
@@ -15,10 +15,8 @@ fun main(args: Array<String>) {
     reduxStore.dispatch(ReduxAction(ActionType.SELECT_CAR, SelectCar(Car())))
 
     render(document.getElementById("root")) {
-
-        redux(reduxStore) {
+        provider(reduxStore) {
             webPage()
         }
-
     }
 }

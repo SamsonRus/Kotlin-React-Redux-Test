@@ -1,10 +1,10 @@
 package components
 
-import containers.CarsList
-import containers.Details
-import containers.carsListConnector
-import containers.detailsConnector
-import react.*
+import containers.*
+import react.RBuilder
+import react.RComponent
+import react.RProps
+import react.RState
 import react.dom.div
 import react.dom.h2
 import react.dom.h3
@@ -14,12 +14,11 @@ import redux.connectRedux
 class WebPage : RComponent<RProps, RState>() {
     override fun RBuilder.render() {
         div {
-            h2{+"Cars"}
-            connectRedux<CarsList>(carsListConnector){}
-            hr {  }
-            h3{+"Details"}
-            connectRedux<Details>(detailsConnector){}
-            //details()
+            h2 { +"Cars" }
+            connectRedux<CarsList, CarsListRProps>(carsListConnector) {}
+            hr { }
+            h3 { +"Details" }
+            connectRedux<Details, DetailsRProps>(detailsConnector) {}
         }
     }
 }

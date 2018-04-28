@@ -1,13 +1,13 @@
 package store
 
-import redux.ReduxState
+import redux.Redux
 
-fun mainReducer(reduxState: ReduxStore, reduxAction: dynamic): ReduxState =
+fun mainReducer(reduxState: ReduxStore, reduxAction: dynamic): Redux.ReduxState =
         if (reduxAction.type == "@@INIT") {
             reduxState
         } else {
             when (ActionType.valueOf(reduxAction.type)) {
-                ActionType.SELECT_CAR   -> {
+                ActionType.SELECT_CAR -> {
                     val selectCar = reduxAction.payload as SelectCar
                     reduxState.copy(active = selectCar.car)
                 }

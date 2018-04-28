@@ -5,10 +5,8 @@ package redux
 import react.RProps
 import react.ReactElement
 
-
 @JsName("connect")
-external fun <P : RProps, ST : ReduxState> connect(
+external fun <P : RProps, ST : Redux.ReduxState> connect(
         mapStateToProps: ((ST, P) -> P)? = definedExternally,
-        mapDispatchToProps: (((dynamic) -> Unit, P) -> P)? = definedExternally
-                                                  ): (Any) -> ReactElement
+        mapDispatchToProps: (((dynamic) -> Unit, P) -> P)? = definedExternally): (Any) -> ReactElement
 

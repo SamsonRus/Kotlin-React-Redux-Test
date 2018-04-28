@@ -3,10 +3,20 @@ package redux
 import kotlinext.js.jsObject
 import react.*
 
-inline fun <reified T : Component<out RProps, *>> RBuilder.connectRedux(
-        crossinline connectFunction: (RClass<RProps>) -> ReactElement,
-        noinline handler: RHandler<out RProps> = {}
-                                                                             ): ReactElement {
-    val type = T::class.js.unsafeCast<RClass<RProps>>()
+inline fun <reified T : Component<P, *>, reified P : RProps> RBuilder.connectRedux(
+        crossinline connectFunction: (RClass<P>) -> ReactElement,
+        noinline handler: RHandler<out P> = {}): ReactElement {
+    val type = T::class.js.unsafeCast<RClass<P>>()
     return child(connectFunction(type), jsObject {}, handler).asDynamic()
 }
+
+fun thunk(f: Redux.Store.() -> Any) =
+        { dispatch: (Any) -> dynamic, getState: () -> Redux.ReduxState, subscribe: (dynamic) -> dynamic, replaceReducer: (dynamic) -> dynamic ->
+            val store = object : Redux.Store {
+                override fun getState() = getState()
+                override fun doDispatch(action: dynamic) = dispatch(action)
+                override fun replaceReducer(router: dynamic) = replaceReducer(router)
+                override fun subscribe(block: dynamic) = subscribe(block)
+            }
+            store.f()
+        }
