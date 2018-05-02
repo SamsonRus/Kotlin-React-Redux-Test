@@ -1,10 +1,10 @@
 package store
 
+import kotlinx.coroutines.experimental.async
 import model.Car
 import redux.ReduxAction
 import redux.dispatch
 import redux.thunk
-import util.async
 
 fun changeActiveCar(car: Car) = thunk {
     async {

@@ -1,7 +1,7 @@
 package redux
 
+import kotlinext.js.js
 import store.ActionType
-import util.js
 
 interface ActionPayload
 class EmptyPayload : ActionPayload

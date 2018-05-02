@@ -1,6 +1,5 @@
 package redux
-
-import util.require
+import kotlinext.js.require
 
 @JsModule("redux")
 @JsNonModule

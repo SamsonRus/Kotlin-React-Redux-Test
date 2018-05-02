@@ -19,6 +19,7 @@ val detailsConnector = connect<DetailsRProps, ReduxStore>({ state: ReduxStore, p
     }
 })
 
+
 class Details : RComponent<DetailsRProps, RState>() {
     override fun RBuilder.render() {
         if (props.car!!.car == "") {

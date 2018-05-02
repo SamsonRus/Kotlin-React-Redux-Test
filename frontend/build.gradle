@@ -30,6 +30,7 @@ dependencies {
     compile "org.jetbrains:kotlin-react:$kotlin_react_version"
     compile "org.jetbrains:kotlin-react-dom:$kotlin_react_version"
     compile "org.jetbrains.kotlinx:kotlinx-html-js:$html_version"
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-core-js:0.22.4"
 }
 
 kotlinFrontend {
