@@ -1,14 +1,14 @@
 package components
 
 import containers.*
+import containers.DumbComponent.Companion.dumb
+import containers.SmartComponent.Companion.smart
+import org.w3c.dom.css.StyleSheet
 import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
-import react.dom.div
-import react.dom.h2
-import react.dom.h3
-import react.dom.hr
+import react.dom.*
 import redux.connectRedux
 
 class WebPage : RComponent<RProps, RState>() {
@@ -16,6 +16,8 @@ class WebPage : RComponent<RProps, RState>() {
         div {
             h2 { +"Cars" }
             connectRedux<CarsList, CarsListRProps>(carsListConnector) {}
+            dumb()
+            smart()
             hr { }
             h3 { +"Details" }
             connectRedux<Details, DetailsRProps>(detailsConnector) {}

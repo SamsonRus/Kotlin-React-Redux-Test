@@ -1,5 +1,7 @@
 package redux
 import kotlinext.js.require
+import kotlinx.coroutines.experimental.async
+import store.ActionType
 
 @JsModule("redux")
 @JsNonModule
@@ -35,6 +37,11 @@ external object Redux {
 val ReduxThunk: dynamic = require("redux-thunk").default
 val composeWithDevTools: dynamic = require("redux-devtools-extension").composeWithDevTools
 
+fun dispatchToRedux(action: ActionType, payload: ActionPayload) = thunk {
+    async {
+        dispatch(ReduxAction(action, payload))
+    }
+}
 fun Redux.Store.dispatch(action: ReduxAction) {
     this.doDispatch(action())
 }
