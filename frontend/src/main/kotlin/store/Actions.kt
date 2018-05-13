@@ -4,9 +4,14 @@ package store
 
 import model.Car
 import redux.ActionPayload
+import redux.ActionType
 
-enum class ActionType {
-    SELECT_CAR
+enum class ActionType : ActionType {
+    SELECT_CAR {
+        override fun value(): String {
+            return name
+        }
+    }
 }
 
 data class SelectCar(val car: Car) : ActionPayload

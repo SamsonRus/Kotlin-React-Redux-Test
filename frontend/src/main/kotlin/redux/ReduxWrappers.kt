@@ -1,7 +1,6 @@
 package redux
 import kotlinext.js.require
 import kotlinx.coroutines.experimental.async
-import store.ActionType
 
 @JsModule("redux")
 @JsNonModule
