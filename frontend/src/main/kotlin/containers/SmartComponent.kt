@@ -15,19 +15,25 @@ import store.ReduxStore
 import store.changeActiveCar
 
 class SmartComponent : RComponent<SmartComponent.Props, RState>() {
-
     companion object {
-        private val connector = connect<SmartComponent.Props, ReduxStore>({ state: ReduxStore, props ->
-            assign(props) {
-                cars = state.cars
-            }
-        }, { dispatch, props ->
-            assign(props) {
-                changeSelectCar = { selectedCar: Car ->
-                    dispatch(changeActiveCar(selectedCar))
+        private val connector = connect({ state: ReduxStore, props -> initState(props, state) }, dispatch())
+
+        private fun dispatch(): ((dynamic) -> Unit, Props) -> Props {
+            return { dispatch, props ->
+                assign(props) {
+                    changeSelectCar = { selectedCar: Car ->
+                        dispatch(changeActiveCar(selectedCar))
+                    }
                 }
             }
-        })
+        }
+
+        private fun initState(props: Props, state: ReduxStore): Props {
+            return assign(props) {
+                cars = state.cars
+            }
+        }
+
 
         fun RBuilder.smart(): ReactElement = connectRedux<SmartComponent, SmartComponent.Props>(SmartComponent.connector)
     }
@@ -45,7 +51,7 @@ class SmartComponent : RComponent<SmartComponent.Props, RState>() {
             button {
                 +"input Car"
                 attrs.onClickFunction = {
-                    val car = props.cars.filter { car -> car.car == inputRef.current!!.value }.firstOrNull()
+                    val car = props.cars.firstOrNull { car -> car.car == inputRef.current!!.value }
 
                     car?.let {
                         props.changeSelectCar(it)

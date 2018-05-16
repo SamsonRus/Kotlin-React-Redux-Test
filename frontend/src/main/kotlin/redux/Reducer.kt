@@ -2,6 +2,9 @@ package redux
 
 import store.ReduxStore
 
+/**
+ * Store reducers.
+ */
 abstract class Reducer {
 
     init {
@@ -9,20 +12,43 @@ abstract class Reducer {
     }
 
     companion object {
+
+        /** Store reducers. */
         private val reducers = HashMap<String, (reduxAction: dynamic, reduxState: ReduxStore) -> Redux.ReduxState>()
     }
 
 
-    fun mainReducer(reduxState: ReduxStore, reduxAction: dynamic): Redux.ReduxState =
-            if (reduxAction.type == "@@INIT") {
-                reduxState
+    /**
+     * Reduce state and action.
+     *
+     * @param state redux state.
+     * @param action redux action.
+     *
+     * @return new redux state.
+     */
+    fun reduce(state: ReduxStore, action: dynamic): Redux.ReduxState =
+            if (action.type == "@@INIT") {
+                state
             } else {
-                reducers[reduxAction.type]!!.invoke(reduxAction, reduxState)
+                reducers[action.type]!!.invoke(action, state)
             }
 
-    fun addReducer(actionType: redux.ActionType, action: (reduxAction: dynamic, reduxState: ReduxStore) -> Redux.ReduxState) {
-        reducers.put(actionType.value(), action)
+    /**
+     * Add reducer.
+     *
+     * @param actionType action type for identify action.
+     * @param action action for dispatch.
+     */
+    fun addReducer(actionType: redux.ReduxActionType, action: (reduxAction: dynamic, reduxState: ReduxStore) -> Redux.ReduxState) {
+        if (reducers.containsKey(actionType.value())) {
+            console.error("Action type already exist!")
+        } else {
+            reducers[actionType.value()] = action
+        }
     }
 
+    /**
+     * Add reducers. For adding use [addReducer].
+     */
     abstract fun addReducers()
 }

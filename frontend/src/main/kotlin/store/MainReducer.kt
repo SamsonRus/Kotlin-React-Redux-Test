@@ -2,13 +2,13 @@ package store
 
 import redux.Reducer
 
-class MyReducer : Reducer() {
+class MainReducer : Reducer() {
 
     override fun addReducers() {
-        addSelectCardReducer()
+        addSelectCarReducer()
     }
 
-    private fun addSelectCardReducer() {
+    private fun addSelectCarReducer() {
         val selectCarAction = { reduxAction: dynamic, reduxState: ReduxStore ->
             val selectCar = reduxAction.payload as SelectCar
             reduxState.copy(active = selectCar.car)

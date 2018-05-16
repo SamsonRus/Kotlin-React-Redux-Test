@@ -1,6 +1,6 @@
 package store
 
 import model.Car
-import redux.dispatchToRedux
+import redux.dispatchAsync
 
-fun changeActiveCar(car: Car) = dispatchToRedux(ActionType.SELECT_CAR, SelectCar(car))
+fun changeActiveCar(car: Car) = dispatchAsync(ActionType.SELECT_CAR, SelectCar(car))

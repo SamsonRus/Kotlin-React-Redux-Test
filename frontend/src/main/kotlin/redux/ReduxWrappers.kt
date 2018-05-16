@@ -6,6 +6,7 @@ import kotlinx.coroutines.experimental.async
 @JsNonModule
 external object Redux {
     interface ReduxState
+
     interface Store {
         @JsName("getState")
         fun getState(): ReduxState
@@ -36,11 +37,12 @@ external object Redux {
 val ReduxThunk: dynamic = require("redux-thunk").default
 val composeWithDevTools: dynamic = require("redux-devtools-extension").composeWithDevTools
 
-fun dispatchToRedux(action: ActionType, payload: ActionPayload) = thunk {
+fun dispatchAsync(actionType: ReduxActionType, payload: ActionPayload) = thunk {
     async {
-        dispatch(ReduxAction(action, payload))
+        dispatch(actionType, payload)
     }
 }
-fun Redux.Store.dispatch(action: ReduxAction) {
-    this.doDispatch(action())
+
+fun Redux.Store.dispatch(actionType: ReduxActionType, payload: ActionPayload) {
+    this.doDispatch(ReduxAction(actionType, payload)())
 }

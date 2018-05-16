@@ -1,16 +1,12 @@
-@file:Suppress("ArrayInDataClass")
-
 package store
 
 import model.Car
 import redux.ActionPayload
-import redux.ActionType
+import redux.ReduxActionType
 
-enum class ActionType : ActionType {
+enum class ActionType : ReduxActionType {
     SELECT_CAR {
-        override fun value(): String {
-            return name
-        }
+        override fun value() = name
     }
 }
 
