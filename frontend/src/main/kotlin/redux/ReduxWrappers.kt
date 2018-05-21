@@ -1,10 +1,12 @@
 package redux
 import kotlinext.js.require
+import kotlinx.coroutines.experimental.async
 
 @JsModule("redux")
 @JsNonModule
 external object Redux {
     interface ReduxState
+
     interface Store {
         @JsName("getState")
         fun getState(): ReduxState
@@ -35,6 +37,12 @@ external object Redux {
 val ReduxThunk: dynamic = require("redux-thunk").default
 val composeWithDevTools: dynamic = require("redux-devtools-extension").composeWithDevTools
 
-fun Redux.Store.dispatch(action: ReduxAction) {
-    this.doDispatch(action())
+fun dispatchAsync(actionType: ReduxActionType, payload: ActionPayload) = thunk {
+    async {
+        dispatch(actionType, payload)
+    }
+}
+
+fun Redux.Store.dispatch(actionType: ReduxActionType, payload: ActionPayload) {
+    this.doDispatch(ReduxAction(actionType, payload)())
 }

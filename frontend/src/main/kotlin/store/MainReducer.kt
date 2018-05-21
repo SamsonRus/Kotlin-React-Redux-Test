@@ -1,15 +1,19 @@
 package store
 
-import redux.Redux
+import redux.Reducer
 
-fun mainReducer(reduxState: ReduxStore, reduxAction: dynamic): Redux.ReduxState =
-        if (reduxAction.type == "@@INIT") {
-            reduxState
-        } else {
-            when (ActionType.valueOf(reduxAction.type)) {
-                ActionType.SELECT_CAR -> {
-                    val selectCar = reduxAction.payload as SelectCar
-                    reduxState.copy(active = selectCar.car)
-                }
-            }
+class MainReducer : Reducer() {
+
+    override fun addReducers() {
+        addSelectCarReducer()
+    }
+
+    private fun addSelectCarReducer() {
+        val selectCarAction = { reduxAction: dynamic, reduxState: ReduxStore ->
+            val selectCar = reduxAction.payload as SelectCar
+            reduxState.copy(active = selectCar.car)
         }
+
+        addReducer(ActionType.SELECT_CAR, selectCarAction)
+    }
+}
