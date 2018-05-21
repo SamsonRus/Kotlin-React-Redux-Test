@@ -3,6 +3,14 @@ package redux
 import kotlinext.js.jsObject
 import react.*
 
+/**
+ * Function for connection to a redux
+ *
+ * @param {component} connect function
+ * @param {props} for component
+ *
+ * return ReactElement connected redux
+ **/
 inline fun <reified T : Component<P, *>, reified P : RProps> RBuilder.connectRedux(
         crossinline connectFunction: (RClass<P>) -> ReactElement,
         noinline handler: RHandler<out P> = {}): ReactElement {
