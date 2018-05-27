@@ -2,7 +2,7 @@ package store
 
 import redux.Reducer
 
-class MainReducer : Reducer() {
+class MainReducer : Reducer<ReduxStore>() {
 
     override fun addReducers() {
         addSelectCarReducer()

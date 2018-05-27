@@ -116,7 +116,7 @@ external object Redux {
      * @returns {Function} A store enhancer applying the middleware.
      */
     @JsName("applyMiddleware")
-    fun applyMiddleware(vararg middleware: () -> (dynamic) -> dynamic): ((dynamic) -> Unit, () -> ReduxState) -> Unit
+    fun <T : ReduxState> applyMiddleware(vararg middleware: () -> (dynamic) -> dynamic): ((dynamic) -> Unit, () -> ReduxState) -> T
 
     /**
      * Composes single-argument functions from right to left. The rightmost
@@ -136,9 +136,7 @@ val ReduxThunk: dynamic = require("redux-thunk").default
 val composeWithDevTools: dynamic = require("redux-devtools-extension").composeWithDevTools
 
 fun dispatchAsync(actionType: ReduxActionType, payload: ActionPayload) = thunk {
-    async {
-        dispatch(actionType, payload)
-    }
+    dispatch(actionType, payload)
 }
 
 fun Redux.Store.dispatch(actionType: ReduxActionType, payload: ActionPayload) {
